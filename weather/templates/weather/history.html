@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sky</title>
+    {% load static %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="{% static 'weather/script.js' %}"></script>
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="{% static 'weather/style.css' %}" rel="stylesheet" type="text/css">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/solid.min.css" rel="stylesheet"
+        type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/fontawesome.min.css"
+        type="text/css">
+
+
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="row" id="searchRow">
+            <div class="col-md-12">
+                <h3 style="color:darkgrey">Saved Search History</h3>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Address</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Temperature</th>
+                            <th scope="col">Icon</th>
+                            <th scope="col">Summary</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if history_weather %}
+
+                        {% for weather_data in history_weather %}
+                        <tr>
+                            <th>{{ weather_data.request_address }}</th>
+                            <td>{{ weather_data.request_date }}</td>
+                            <td>{{ weather_data.request_temp }}</td>
+                            <td>{{ weather_data.request_icon }}</td>
+                            <td>{{ weather_data.request_summ }}</td>
+                        </tr>
+                        {% endfor %}
+
+                        {% else %}
+                        <tr>
+                            <th>No data available</th>
+                        </tr>
+                        {% endif %}
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-12">
+                <a href="{% url 'index' %}" class="btn btn-outline-success my-2 mr-sm-2">Back</a>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>

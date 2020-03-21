@@ -1,0 +1,133 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sky</title>
+    {% load static %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="{% static 'weather/script.js' %}"></script>
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="{% static 'weather/style.css' %}" rel="stylesheet" type="text/css">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/solid.min.css" rel="stylesheet"
+        type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/fontawesome.min.css"
+        type="text/css">
+
+
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="row" id="searchRow">
+            <div class="col-md-12">
+                <form class="form-inline my-2 my-lg-0" action="" method="post" id="searchForm">
+                    <input class="form-control mr-sm-2" name="valueToSearch" type="text"
+                        placeholder="search location, zip..." aria-label="Search" id="jobSearch" autocomplete="off"
+                        value="">
+
+                    <a href="{% url 'history' %}" class="btn btn-outline-success my-2 mr-sm-2">Search History</a>
+                </form>
+            </div>
+            <div class="col-md-12">
+                <div id="jobTitleList"></div>
+            </div>
+        </div>
+
+        <div class="row" id="resultsDiv" hidden>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col">
+                        <h1 style="color: grey;">Current Weather</h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <h3 style="color: darkgrey;" id="result_address"></h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6" style="text-align: center;">
+                        <i style="font-size: 800%;color: cornflowerblue" id="weathIcon" class="fas"></i>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col">
+                                <h1 class="degrees" style="color: cornflowerblue" id="result_temp"> </h1>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p class="degrees" id="result_ap_temp"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p id="result_windsp"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p id="result_humid"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <h3 style="color: grey;" id="result_summ"></h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6" style="border-left: 2px solid darkgrey;">
+                <p id="precInt"></p>
+                <p id="precProb"></p>
+                <p class="degrees" id="dewPoint"></p>
+                <p id="pressure"></p>
+                <p id="windGust"></p>
+                <p id="windBearing"></p>
+                <p id="cloudCover"></p>
+                <form class="form-inline my-2 my-lg-0" action="{% url 'save' %}" method="post" id="searchForm">
+                    {% csrf_token %}
+                    <input hidden class="form-control mr-sm-2" name="address" type="text" aria-label="Search"
+                        id="saveAddress" value="">
+                    <input hidden class="form-control mr-sm-2" name="icon" type="text" aria-label="Search" id="saveIcon"
+                        value="">
+                    <input hidden class="form-control mr-sm-2" name="temp" type="text" aria-label="Search" id="saveTemp"
+                        value="">
+                    <input hidden class="form-control mr-sm-2" name="summ" type="text" aria-label="Search" id="saveSum"
+                        value="">
+                    <button class="btn btn-outline-primary my-2 mr-sm-2" name="search" id="jobSearchBtn"
+                        type="submit">Save Results</button>
+                    <!-- <button class="btn btn-outline-primary my-2 mr-sm-2" name="search" id="" type="submit">View Previous
+                        Searches</button> -->
+                    <!-- <div id ="jobTitleList"></div> -->
+                </form>
+            </div>
+        </div>
+        <div class="row" id="defaultDiv">
+            <div class="col-md-6">
+                <i style="font-size: 800%;color: cornflowerblue" id="weathIcon" class="fas fa-snowflake"></i>
+                <i style="font-size: 500%;color: cornflowerblue;margin-left: 50%;" id="weathIcon"
+                    class="fas fa-bolt"></i>
+            </div>
+            <div class="col-md-6">
+                <i style="font-size: 800%;color: cornflowerblue" id="weathIcon" class="fas fa-cloud"></i>
+            </div>
+            <div class="col-md-6" style="text-align: center;">
+                <i style=" font-size: 800%;color: cornflowerblue" id="weathIcon" class="fas fa-moon"></i>
+            </div>
+            <div class="col-md-6">
+                <i style="font-size: 800%;color: cornflowerblue" id="weathIcon" class="fas fa-sun"></i>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

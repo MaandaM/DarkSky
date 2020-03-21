@@ -1,0 +1,47 @@
+/* #result_temp:after {
+    content: "\00b0"
+} */
+
+.degrees:after {
+    content: "\00b0"
+}
+
+.jobTList {
+    background-color: #eee;
+    cursor: pointer;
+}
+
+.jobTListItem {
+    padding: 6px;
+}
+
+#jobTitleList {
+    position: absolute;
+    top: 100%;
+    z-index: 1;
+}
+
+#searchRow {
+    margin-top: 10%;
+    margin-bottom: 10%;
+}
+
+#jobSearch {
+    width: 70%
+}
+
+#jobTitleList {
+    width: 68%;
+}
+
+.jobTList {
+    border-radius: 10px
+}
+
+p {
+    color: dimgray;
+}
+
+.threshold:before {
+    content: "\00b0"
+}
