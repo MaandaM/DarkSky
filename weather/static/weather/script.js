@@ -1,5 +1,4 @@
 $(document).ready(function () {
-
     $(window).keydown(function (event) {
         if (event.keyCode == 13) {
             event.preventDefault();
@@ -12,31 +11,22 @@ $(document).ready(function () {
 
         if (valueToSearch != "") {
             $.ajax({
-                url: "https://api.mapbox.com/geocoding/v5/mapbox.places/" + valueToSearch + ".json?access_token=pk.eyJ1IjoibWFhbmRhIiwiYSI6ImNqd2dld3NwZTF2b2UzeW1xMDdmYW1wdngifQ.AQrKj9DG8uTrTMG12GA5Fg",
+                url: "/static/weather/mapbox.py",
+                data: {
+                    valueToSearch: valueToSearch
+                },
                 method: "GET",
                 contentType: "application/json",
                 dataType: "json",
                 success: function (data) {
-                    // for (var i = 0; i < data.features.length; i++) {
-                    //     console.log("Name = " + data.features[i].text)
-                    // }
-                    var results = "<ul class='list-unstyled jobTList'>";
-                    if (data.features.length > 0) {
-                        for (var i = 0; i < data.features.length; i++) {
-                            var coordinates = '' + data.features[i].center[1] + ',' + data.features[i].center[0] + '';
-                            results = results + "<li class = 'jobTListItem' id='" + coordinates + "'>" + data.features[i].place_name + "</li>"
-                        }
-                    } else {
-                        results = results + "<li class = 'jobTListItem'>Address Not Found</li>"
-                    }
-                    results = results + "</ul>"
 
-                    $("#jobTitleList").fadeIn();
-                    $("#jobTitleList").html(results);
+                    alert(data);
+
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                     alert(errorThrown);
                     alert(textStatus);
+
                 }
             });
         } else {
@@ -47,11 +37,13 @@ $(document).ready(function () {
     $(document).on("click", ".jobTListItem", function () {
         $("#jobSearch").val($(this).text());
         var selectedValue = $(this).text();
-        var coordinates = $(this).attr('id')
+        var coordinates = $(this).attr("id");
         $("#jobTitleList").fadeOut();
 
         $.ajax({
-            url: "https://api.darksky.net/forecast/9fb7405b3caffe25cbdd66924b8d70b7/" + coordinates + "?exclude=hourly,daily,flags",
+            // url: "https://api.darksky.net/forecast/9fb7405b3caffe25cbdd66924b8d70b7/" +
+            //     coordinates +
+            //     "?exclude=hourly,daily,flags",
             method: "GET",
             contentType: "application/json",
             dataType: "jsonp",
@@ -80,19 +72,29 @@ $(document).ready(function () {
 
                 $("#result_temp").text(data.currently.temperature);
                 $("#result_address").text(selectedValue);
-                $("#result_ap_temp").text("Apparent Temperature: " + data.currently.apparentTemperature);
-                $("#result_windsp").text("Wind Speed: " + data.currently.windSpeed + "mph");
+                $("#result_ap_temp").text(
+                    "Apparent Temperature: " + data.currently.apparentTemperature
+                );
+                $("#result_windsp").text(
+                    "Wind Speed: " + data.currently.windSpeed + "mph"
+                );
                 $("#result_humid").text("Humidity: " + data.currently.humidity + "%");
                 $("#result_summ").text(data.currently.summary);
 
-                $("#precInt").text("precipitation Intensity: " + data.currently.precipIntensity);
-                $("#precProb").text("precipitation Probability: " + data.currently.precipProbability);
+                $("#precInt").text(
+                    "precipitation Intensity: " + data.currently.precipIntensity
+                );
+                $("#precProb").text(
+                    "precipitation Probability: " + data.currently.precipProbability
+                );
                 $("#dewPoint").text("Dew Point: " + data.currently.dewPoint);
                 $("#pressure").text("Pressure: " + data.currently.pressure + "mbar");
 
                 $("#windGust").text("wind Gust: " + data.currently.windGust);
                 $("#windBearing").text("Wind Bearing: " + data.currently.windBearing);
-                $("#cloudCover").text("Cloud Cover: " + data.currently.cloudCover + "%");
+                $("#cloudCover").text(
+                    "Cloud Cover: " + data.currently.cloudCover + "%"
+                );
 
                 //form
                 $("#saveAddress").val(selectedValue);
@@ -100,10 +102,8 @@ $(document).ready(function () {
                 $("#saveSum").val(data.currently.summary);
                 $("#saveIcon").val(data.currently.icon);
 
-
                 $("#defaultDiv").hide();
-                $("#resultsDiv").removeAttr('hidden')
-
+                $("#resultsDiv").removeAttr("hidden");
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 alert(errorThrown);
@@ -111,4 +111,4 @@ $(document).ready(function () {
             }
         });
     });
-})
+});

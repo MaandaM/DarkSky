@@ -12,16 +12,19 @@ def index(request):
     # context = {'history_weather':history_weather}
     return render(request, 'weather/index.html')
 
+
 def save(request):
     w = weather_data(request_address=request.POST['address'],
-                    request_date = datetime.now(),
-                    request_icon=request.POST['icon'],
-                    request_temp=request.POST['temp'], 
-                    request_summ=request.POST['summ'], )
+                     request_date=datetime.now(),
+                     request_icon=request.POST['icon'],
+                     request_temp=request.POST['temp'],
+                     request_summ=request.POST['summ'], )
     w.save()
     return HttpResponseRedirect(reverse('index'))
 
+
 def history(request):
     history_weather = weather_data.objects.order_by('-request_date')
-    context = {'history_weather':history_weather}
+    context = {'history_weather': history_weather}
     return render(request, 'weather/history.html', context)
+

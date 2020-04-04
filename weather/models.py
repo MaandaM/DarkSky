@@ -15,7 +15,7 @@ class weather_data(models.Model):
     def __str__(self):
         return self.request_icon
 
-    request_temp = models.CharField(max_length=3)
+    request_temp = models.CharField(max_length=5)
     def __str__(self):
         return self.request_temp
     request_summ = models.CharField(max_length=200)
