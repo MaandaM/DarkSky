@@ -22,6 +22,20 @@ $(document).ready(function () {
 
                     alert(data);
 
+                    var results = "<ul class='list-unstyled jobTList'>";
+                    if (data.features.length > 0) {
+                        for (var i = 0; i < data.features.length; i++) {
+                            var coordinates = '' + data.features[i].center[1] + ',' + data.features[i].center[0] + '';
+                            results = results + "<li class = 'jobTListItem' id='" + coordinates + "'>" + data.features[i].place_name + "</li>"
+                        }
+                    } else {
+                        results = results + "<li class = 'jobTListItem'>Address Not Found</li>"
+                    }
+                    results = results + "</ul>"
+
+                    $("#jobTitleList").fadeIn();
+                    $("#jobTitleList").html(results);
+
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                     alert(errorThrown);
